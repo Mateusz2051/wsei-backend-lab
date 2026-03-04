@@ -1,0 +1,11 @@
+D:\Users\mateusz.skrzypczak\Desktop\aa\ApplicationCore\bin\Debug\net8.0\ApplicationCore.deps.json
+D:\Users\mateusz.skrzypczak\Desktop\aa\ApplicationCore\bin\Debug\net8.0\ApplicationCore.dll
+D:\Users\mateusz.skrzypczak\Desktop\aa\ApplicationCore\bin\Debug\net8.0\ApplicationCore.pdb
+D:\Users\mateusz.skrzypczak\Desktop\aa\ApplicationCore\obj\Debug\net8.0\ApplicationCore.GeneratedMSBuildEditorConfig.editorconfig
+D:\Users\mateusz.skrzypczak\Desktop\aa\ApplicationCore\obj\Debug\net8.0\ApplicationCore.AssemblyInfoInputs.cache
+D:\Users\mateusz.skrzypczak\Desktop\aa\ApplicationCore\obj\Debug\net8.0\ApplicationCore.AssemblyInfo.cs
+D:\Users\mateusz.skrzypczak\Desktop\aa\ApplicationCore\obj\Debug\net8.0\ApplicationCore.csproj.CoreCompileInputs.cache
+D:\Users\mateusz.skrzypczak\Desktop\aa\ApplicationCore\obj\Debug\net8.0\ApplicationCore.dll
+D:\Users\mateusz.skrzypczak\Desktop\aa\ApplicationCore\obj\Debug\net8.0\refint\ApplicationCore.dll
+D:\Users\mateusz.skrzypczak\Desktop\aa\ApplicationCore\obj\Debug\net8.0\ApplicationCore.pdb
+D:\Users\mateusz.skrzypczak\Desktop\aa\ApplicationCore\obj\Debug\net8.0\ref\ApplicationCore.dll
