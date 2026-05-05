@@ -1,4 +1,4 @@
-﻿using ApplicationCore.Commons.Repository;
+using ApplicationCore.Commons.Repository;
 using ApplicationCore.Models;
 using ApplicationCore.Models.QuizAggregate;
 using ApplicationCore.Specifications;
@@ -38,10 +38,6 @@ public class QuizUserService: IQuizUserService
 
     public List<QuizItemUserAnswer> GetUserAnswersForQuiz(int quizId, int userId)
     {
-        // return answerRepository.FindAll()
-        //     .Where(x => x.QuizId == quizId)
-        //     .Where(x => x. UserId == userId)
-        //     .ToList();
         return answerRepository.FindBySpecification(new QuizItemsForQuizIdFilledByUser(quizId, userId)).ToList();
     }
 }

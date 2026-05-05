@@ -1,24 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Users\\mateusz.skrzypczak\\Desktop\\aa\\ApplicationCore\\ApplicationCore.csproj": {}
+    "C:\\Users\\mateu\\Documents\\wsei-backend-lab-main\\ApplicationCore\\ApplicationCore.csproj": {}
   },
   "projects": {
-    "D:\\Users\\mateusz.skrzypczak\\Desktop\\aa\\ApplicationCore\\ApplicationCore.csproj": {
+    "C:\\Users\\mateu\\Documents\\wsei-backend-lab-main\\ApplicationCore\\ApplicationCore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Users\\mateusz.skrzypczak\\Desktop\\aa\\ApplicationCore\\ApplicationCore.csproj",
+        "projectUniqueName": "C:\\Users\\mateu\\Documents\\wsei-backend-lab-main\\ApplicationCore\\ApplicationCore.csproj",
         "projectName": "ApplicationCore",
-        "projectPath": "D:\\Users\\mateusz.skrzypczak\\Desktop\\aa\\ApplicationCore\\ApplicationCore.csproj",
-        "packagesPath": "D:\\Users\\mateusz.skrzypczak\\.nuget\\packages\\",
-        "outputPath": "D:\\Users\\mateusz.skrzypczak\\Desktop\\aa\\ApplicationCore\\obj\\",
+        "projectPath": "C:\\Users\\mateu\\Documents\\wsei-backend-lab-main\\ApplicationCore\\ApplicationCore.csproj",
+        "packagesPath": "C:\\Users\\mateu\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\mateu\\Documents\\wsei-backend-lab-main\\ApplicationCore\\obj\\",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "D:\\Users\\mateusz.skrzypczak\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\mateu\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -28,7 +28,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -51,11 +50,17 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "FluentValidation.AspNetCore": {
+              "target": "Package",
+              "version": "[11.3.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -72,10 +77,16 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
         },
         "net9.0": {
           "targetAlias": "net9.0",
+          "dependencies": {
+            "FluentValidation.AspNetCore": {
+              "target": "Package",
+              "version": "[11.3.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -92,7 +103,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

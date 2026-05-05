@@ -1,0 +1,105 @@
+@WebApi_HostAddress = http://localhost:5058
+
+###
+GET {{WebApi_HostAddress}}/api/contacts?page=1&size=10
+Accept: application/json
+
+###
+	POST {{WebApi_HostAddress}}/api/auth/login
+	Content-Type: application/json
+	
+	{
+	   "email": "jan.kowalski@crm.pl",
+	    "password": "Manager@123!"
+	}
+###
+GET {{WebApi_HostAddress}}/api/contacts/00000000-0000-0000-0000-000000000000
+Accept: application/json
+
+###
+
+###
+POST {{WebApi_HostAddress}}/api/contacts
+Content-Type: application/json
+
+{
+  "firstName": "Adam",
+  "lastName": "Nowak",
+  "email": "adam@wsei.edu.pl",
+  "phone": "48 123 456 789",
+  "gender": 1,
+  "birthDate": "1990-05-15T00:00:00Z"
+}
+
+
+
+###
+POST {{WebApi_HostAddress}}/api/contacts
+Content-Type: application/json
+
+{
+  "firstName": "Marek",
+  "lastName": "Franek",
+  "email": "marekfranek@wsei.edu.pl",
+  "phone": "482312624312",
+  "gender": 1,
+  "birthDate": "1922-05-15T00:00:00Z",
+  "address": {
+    "street": "ul. Św. Filipa 17",
+    "city": "Kraków",
+    "postalCode": "31-150",
+    "country": "Polska",
+    "type": 1
+  }
+}
+
+###
+
+###
+POST {{WebApi_HostAddress}}/api/contacts
+Content-Type: application/json
+
+{
+  "firstName": "Adam",
+  "lastName": "Nowak"
+}
+
+###
+
+###
+PUT {{WebApi_HostAddress}}/api/contacts/00000000-0000-0000-0000-000000000000
+Content-Type: application/json
+
+{
+  "firstName": "Adam",
+  "lastName": "Kowalski",
+  "email": "adam.kowalski@wsei.edu.pl",
+  "phone": "48 987 654 321",
+  "status": 1
+}
+
+###
+
+###
+DELETE {{WebApi_HostAddress}}/api/contacts/00000000-0000-0000-0000-000000000000
+
+###
+
+###
+POST {{WebApi_HostAddress}}/api/contacts/00000000-0000-0000-0000-000000000000/notes
+Content-Type: application/json
+
+{
+  "content": "Ważna notatka o kliencie.",
+  "createdBy": "admin"
+}
+
+###
+
+###
+POST {{WebApi_HostAddress}}/api/contacts/00000000-0000-0000-0000-000000000000/tags
+Content-Type: application/json
+
+{
+  "tagName": "vip"
+}

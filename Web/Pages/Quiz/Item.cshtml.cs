@@ -16,12 +16,12 @@ namespace BackendLab01.Pages
             _logger = logger;
         }
         [BindProperty]
-        public string Question { get; set; }
+        public string? Question { get; set; }
         [BindProperty]
-        public List<string> Answers { get; set; }
+        public List<string> Answers { get; set; } = new();
         
         [BindProperty]
-        public String UserAnswer { get; set; }
+        public string? UserAnswer { get; set; }
         
         [BindProperty]
         public int QuizId { get; set; }
@@ -39,8 +39,8 @@ namespace BackendLab01.Pages
             Answers = new List<string>();
             if (quizItem is not null)
             {
-                Answers.AddRange(quizItem?.IncorrectAnswers);
-                Answers.Add(quizItem?.CorrectAnswer);
+                Answers.AddRange(quizItem.IncorrectAnswers);
+                Answers.Add(quizItem.CorrectAnswer);
             }
         }
 
