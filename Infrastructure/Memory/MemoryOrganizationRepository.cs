@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ApplicationCore.Interfaces;
 using ApplicationCore.Models;
@@ -10,11 +11,14 @@ public class MemoryOrganizationRepository : MemoryGenericRepository<Organization
 {
     public Task<IEnumerable<Organization>> FindByTypeAsync(OrganizationType type)
     {
-        throw new NotImplementedException();
+        var result = _data.Values.Where(o => o.Type == type);
+        return Task.FromResult(result);
     }
 
     public Task<IEnumerable<Person>> GetMembersAsync(Guid organizationId)
     {
-        throw new NotImplementedException();
+        var organization = _data.Values.FirstOrDefault(o => o.Id == organizationId);
+        var members = organization?.Members ?? new List<Person>();
+        return Task.FromResult(members.AsEnumerable());
     }
 }

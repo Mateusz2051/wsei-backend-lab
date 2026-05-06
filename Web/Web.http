@@ -1,41 +1,31 @@
 @WebApi_HostAddress = http://localhost:5058
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjkzQTdGRkRELTA1N0YtNDAyMS05QzY4LUZFMDY5NTFGRkE2NSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6Imphbi5rb3dhbHNraUBjcm0ucGwiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9naXZlbm5hbWUiOiJKYW4iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9zdXJuYW1lIjoiS293YWxza2kiLCJkZXBhcnRtZW50IjoiU2FsZXMiLCJzdGF0dXMiOiJBY3RpdmUiLCJqdGkiOiJlZjgyNjFiMC1mMTQ4LTQ4ODMtYTkwNS1hZGRlN2NhYWJiZjQiLCJpYXQiOjE3NzgxMDA1MTQsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlNhbGVzTWFuYWdlciIsIm5iZiI6MTc3ODEwMDUxNCwiZXhwIjoxNzc4MTA0MTE0LCJpc3MiOiJJZGVpc0NybUFwaSIsImF1ZCI6IkNybUNsaWVudCJ9.OFa3i23amWsfl-NGrL-uTzasy2-Cvd2wZQmImVdwWsI
+@personId = 00000000-0000-0000-0000-000000000000
+@organizationId = 00000000-0000-0000-0000-000000000000
 
-###
-GET {{WebApi_HostAddress}}/api/contacts?page=1&size=10
-Accept: application/json
-
-###
-	POST {{WebApi_HostAddress}}/api/auth/login
-	Content-Type: application/json
-	
-	{
-	   "email": "jan.kowalski@crm.pl",
-	    "password": "Manager@123!"
-	}
-###
-GET {{WebApi_HostAddress}}/api/contacts/00000000-0000-0000-0000-000000000000
-Accept: application/json
-
-###
-
-###
-POST {{WebApi_HostAddress}}/api/contacts
+### Auth - login (copy accessToken into @accessToken)
+POST {{WebApi_HostAddress}}/api/auth/login
 Content-Type: application/json
 
 {
-  "firstName": "Adam",
-  "lastName": "Nowak",
-  "email": "adam@wsei.edu.pl",
-  "phone": "48 123 456 789",
-  "gender": 1,
-  "birthDate": "1990-05-15T00:00:00Z"
+  "email": "jan.kowalski@crm.pl",
+  "password": "Manager@123!"
 }
 
+### Contacts - list (requires auth)
+GET {{WebApi_HostAddress}}/api/contacts?page=1&size=10
+Accept: application/json
+Authorization: Bearer {{accessToken}}
 
+### Contacts - get by id
+GET {{WebApi_HostAddress}}/api/contacts/{{personId}}
+Accept: application/json
+Authorization: Bearer {{accessToken}}
 
-###
+### Contacts - create (address required by validator)
 POST {{WebApi_HostAddress}}/api/contacts
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
 {
   "firstName": "Marek",
@@ -43,32 +33,20 @@ Content-Type: application/json
   "email": "marekfranek@wsei.edu.pl",
   "phone": "482312624312",
   "gender": 1,
-  "birthDate": "1922-05-15T00:00:00Z",
+  "birthDate": "1990-05-15T00:00:00Z",
   "address": {
-    "street": "ul. Św. Filipa 17",
-    "city": "Kraków",
+    "street": "Sw. Filipa 17",
+    "city": "Krakow",
     "postalCode": "31-150",
-    "country": "Polska",
+    "country": "Poland",
     "type": 1
   }
 }
 
-###
-
-###
-POST {{WebApi_HostAddress}}/api/contacts
+### Contacts - update
+PUT {{WebApi_HostAddress}}/api/contacts/{{personId}}
 Content-Type: application/json
-
-{
-  "firstName": "Adam",
-  "lastName": "Nowak"
-}
-
-###
-
-###
-PUT {{WebApi_HostAddress}}/api/contacts/00000000-0000-0000-0000-000000000000
-Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
 {
   "firstName": "Adam",
@@ -78,28 +56,74 @@ Content-Type: application/json
   "status": 1
 }
 
-###
+### Contacts - delete
+DELETE {{WebApi_HostAddress}}/api/contacts/{{personId}}
+Authorization: Bearer {{accessToken}}
 
-###
-DELETE {{WebApi_HostAddress}}/api/contacts/00000000-0000-0000-0000-000000000000
-
-###
-
-###
-POST {{WebApi_HostAddress}}/api/contacts/00000000-0000-0000-0000-000000000000/notes
+### Contacts - add note
+POST {{WebApi_HostAddress}}/api/contacts/{{personId}}/notes
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
 {
-  "content": "Ważna notatka o kliencie.",
+  "content": "Wazna notatka o kliencie.",
   "createdBy": "admin"
 }
 
-###
-
-###
-POST {{WebApi_HostAddress}}/api/contacts/00000000-0000-0000-0000-000000000000/tags
+### Contacts - add tag
+POST {{WebApi_HostAddress}}/api/contacts/{{personId}}/tags
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
 {
   "tagName": "vip"
 }
+
+### Organizations - create
+POST {{WebApi_HostAddress}}/api/organizations
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "name": "Open Source Foundation",
+  "type": 4,
+  "krs": "0000123456",
+  "website": "https://example.org",
+  "mission": "Support open source projects",
+  "email": "contact@example.org",
+  "phone": "+48 500 600 700",
+  "address": {
+    "street": "Main 10",
+    "city": "Krakow",
+    "postalCode": "31-150",
+    "country": "Poland",
+    "type": 1
+  }
+}
+
+### Organizations - list
+GET {{WebApi_HostAddress}}/api/organizations
+Accept: application/json
+Authorization: Bearer {{accessToken}}
+
+### Organizations - get by id
+GET {{WebApi_HostAddress}}/api/organizations/{{organizationId}}
+Accept: application/json
+Authorization: Bearer {{accessToken}}
+
+### Organizations - add member
+POST {{WebApi_HostAddress}}/api/organizations/{{organizationId}}/members/{{personId}}
+Authorization: Bearer {{accessToken}}
+
+### Organizations - list members
+GET {{WebApi_HostAddress}}/api/organizations/{{organizationId}}/members
+Accept: application/json
+Authorization: Bearer {{accessToken}}
+
+### Organizations - remove member
+DELETE {{WebApi_HostAddress}}/api/organizations/{{organizationId}}/members/{{personId}}
+Authorization: Bearer {{accessToken}}
+
+### Organizations - delete
+DELETE {{WebApi_HostAddress}}/api/organizations/{{organizationId}}
+Authorization: Bearer {{accessToken}}

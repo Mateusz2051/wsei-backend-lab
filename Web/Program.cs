@@ -20,6 +20,7 @@ builder.Services.AddJwt(new JwtSettings(builder.Configuration));
 
 builder.Services.AddScoped<IPersonService, MemoryPersonService>();
 builder.Services.AddScoped<ICompanyService, CompanyService>();
+builder.Services.AddScoped<IOrganizationService, OrganizationService>();
 
 builder.Services.AddExceptionHandler<ProblemDetailsExceptionHandler>();    
 builder.Services.AddProblemDetails();
