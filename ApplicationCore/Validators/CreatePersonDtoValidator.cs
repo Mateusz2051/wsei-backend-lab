@@ -52,6 +52,25 @@ public class CreatePersonDtoValidator : AbstractValidator<CreatePersonDto>
         RuleFor(x => x.Address)
             .NotNull().WithMessage("Adres jest wymagany.")
             .SetValidator(new AddressDtoValidator()!);
+
+        RuleFor(x => x.Pesel)
+            .Must(BeValidPesel)
+            .WithMessage("Nieprawidłowy numer PESEL.")
+            .When(x => x.Pesel is not null);
+    }
+
+    private bool BeValidPesel(string? pesel)
+    {
+        if (string.IsNullOrWhiteSpace(pesel)) return true;
+        try
+        {
+            _ = new Models.Pesel(pesel);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
     }
 
     private async Task<bool> EmployerExistsAsync(Guid? employerId, CancellationToken ct) =>

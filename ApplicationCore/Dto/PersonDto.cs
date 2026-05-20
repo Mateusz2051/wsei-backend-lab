@@ -13,6 +13,7 @@ public record PersonDto : ContactBaseDto
     public Gender Gender { get; init; }
     public Guid? EmployerId { get; init; }
     public Guid? OrganizationId { get; init; }
+    public string? Pesel { get; init; }
 
     public static PersonDto FromEntity(Person person) => new()
     {
@@ -26,6 +27,7 @@ public record PersonDto : ContactBaseDto
         Gender = person.Gender,
         EmployerId = person.Employer?.Id,
         OrganizationId = person.Organization?.Id,
+        Pesel = person.Pesel?.Value,
         Status = person.Status,
         Tags = person.Tags.Select(t => t.Name).ToList(),
         Notes = person.Notes,
@@ -45,7 +47,8 @@ public record PersonDto : ContactBaseDto
         Gender = dto.Gender,
         CreatedAt = DateTime.UtcNow,
         Status = ContactStatus.Active,
-        Address = MapAddress(dto.Address)
+        Address = MapAddress(dto.Address),
+        Pesel = dto.Pesel is not null ? new Pesel(dto.Pesel) : null
     };
 
     public static Person ApplyUpdate(Person person, UpdatePersonDto dto)
@@ -59,6 +62,7 @@ public record PersonDto : ContactBaseDto
         if (dto.Gender is not null) person.Gender = dto.Gender.Value;
         if (dto.Status is not null) person.Status = dto.Status.Value;
         if (dto.Address is not null) person.Address = MapAddress(dto.Address);
+        if (dto.Pesel is not null) person.Pesel = string.IsNullOrWhiteSpace(dto.Pesel) ? null : new Pesel(dto.Pesel);
         person.UpdatedAt = DateTime.UtcNow;
         return person;
     }

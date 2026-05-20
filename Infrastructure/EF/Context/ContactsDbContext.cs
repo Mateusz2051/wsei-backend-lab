@@ -56,6 +56,11 @@ public class ContactsDbContext : IdentityDbContext<CrmUser, CrmRole, string>
             entity.Property(p => p.BirthDate).HasColumnType("TEXT"); 
             entity.Property(p => p.Gender).HasConversion<string>();
             entity.Property(p => p.Status).HasConversion<string>();
+            entity.Property(p => p.Pesel)
+                .HasConversion(
+                    p => p != null ? p.Value : null,
+                    v => v != null ? new Pesel(v) : null)
+                .HasMaxLength(11);
         });
         
         // definicja związku  

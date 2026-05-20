@@ -45,4 +45,31 @@ public class MemoryPersonRepository : MemoryGenericRepository<Person>, IPersonRe
         var result = _data.Values.Where(p => p.Organization != null && p.Organization.Id == organizationId);
         return Task.FromResult(result);
     }
+
+    public Task<IEnumerable<Person>> SearchAsync(string? emailDomain, Guid? organizationId, Guid? companyId)
+    {
+        IEnumerable<Person> query = _data.Values;
+
+        if (!string.IsNullOrWhiteSpace(emailDomain))
+        {
+            var domain = emailDomain.Trim();
+            if (!domain.StartsWith("@"))
+            {
+                domain = "@" + domain;
+            }
+            query = query.Where(p => p.Email != null && p.Email.EndsWith(domain, StringComparison.OrdinalIgnoreCase));
+        }
+
+        if (organizationId.HasValue)
+        {
+            query = query.Where(p => p.Organization != null && p.Organization.Id == organizationId.Value);
+        }
+
+        if (companyId.HasValue)
+        {
+            query = query.Where(p => p.Employer != null && p.Employer.Id == companyId.Value);
+        }
+
+        return Task.FromResult(query);
+    }
 }

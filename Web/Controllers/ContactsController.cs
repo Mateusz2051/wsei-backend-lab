@@ -18,6 +18,16 @@ public class ContactsController(IPersonService service) : ControllerBase
         return Ok(await service.FindAllPeoplePaged(page, size));
     }
 
+    [HttpGet("search")]
+    public async Task<IActionResult> SearchPeople(
+        [FromQuery] string? emailDomain,
+        [FromQuery] Guid? organizationId,
+        [FromQuery] Guid? companyId)
+    {
+        var results = await service.SearchPeopleAsync(emailDomain, organizationId, companyId);
+        return Ok(results);
+    }
+
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetPerson(Guid id)
     {

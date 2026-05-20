@@ -12,5 +12,6 @@ public record CreatePersonDto(
     DateTime? BirthDate,
     Gender Gender,
     Guid? EmployerId,
-    AddressDto? Address
+    AddressDto? Address,
+    string? Pesel = null
 );

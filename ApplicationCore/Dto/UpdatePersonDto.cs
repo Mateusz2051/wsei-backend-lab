@@ -13,5 +13,6 @@ public record UpdatePersonDto(
     Gender? Gender,
     Guid? EmployerId,
     AddressDto? Address,
-    ContactStatus? Status
+    ContactStatus? Status,
+    string? Pesel = null
 );

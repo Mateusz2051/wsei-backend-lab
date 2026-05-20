@@ -21,4 +21,5 @@ public interface IPersonService
     Task<Note> AddNoteToPerson(Guid personId, CreateNoteDto noteDto);
     Task<PersonDto?> GetPerson(Guid personId);
     Task AddTagAsync(Guid personId, string tagName);
+    Task<IEnumerable<PersonDto>> SearchPeopleAsync(string? emailDomain, Guid? organizationId, Guid? companyId);
 }

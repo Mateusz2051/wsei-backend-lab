@@ -12,6 +12,7 @@ public class Person : Contact
     public string? Position { get; set; }
     public Organization? Organization { get; set; }
     public Company? Employer { get; set; }
+    public Pesel? Pesel { get; set; }
 
     public override string GetDisplayName() => $"{FirstName} {LastName}";
 }

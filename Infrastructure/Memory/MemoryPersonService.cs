@@ -33,6 +33,10 @@ public class MemoryPersonService(IContactUnitOfWork unitOfWork) : IPersonService
     public async Task<Person> AddPerson(CreatePersonDto personDto)
     {
         var entity = PersonDto.ToEntity(personDto);
+        if (personDto.EmployerId.HasValue)
+        {
+            entity.Employer = await unitOfWork.Companies.FindByIdAsync(personDto.EmployerId.Value);
+        }
         entity = await unitOfWork.Persons.AddAsync(entity);
         await unitOfWork.SaveChangesAsync();
         return entity;
@@ -44,6 +48,12 @@ public class MemoryPersonService(IContactUnitOfWork unitOfWork) : IPersonService
             ?? throw new KeyNotFoundException($"Person with id {id} not found.");
 
         PersonDto.ApplyUpdate(person, personDto);
+        if (personDto.EmployerId is not null)
+        {
+            person.Employer = personDto.EmployerId.Value == Guid.Empty
+                ? null
+                : await unitOfWork.Companies.FindByIdAsync(personDto.EmployerId.Value);
+        }
         var updated = await unitOfWork.Persons.UpdateAsync(person);
         await unitOfWork.SaveChangesAsync();
         return updated;
@@ -98,5 +108,11 @@ public class MemoryPersonService(IContactUnitOfWork unitOfWork) : IPersonService
 
         await unitOfWork.Persons.UpdateAsync(person);
         await unitOfWork.SaveChangesAsync();
+    }
+
+    public async Task<IEnumerable<PersonDto>> SearchPeopleAsync(string? emailDomain, Guid? organizationId, Guid? companyId)
+    {
+        var people = await unitOfWork.Persons.SearchAsync(emailDomain, organizationId, companyId);
+        return people.Select(PersonDto.FromEntity);
     }
 }
