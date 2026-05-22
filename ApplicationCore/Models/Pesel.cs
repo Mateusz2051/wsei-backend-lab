@@ -7,6 +7,10 @@ namespace ApplicationCore.Models;
 public class Pesel : ValueObject
 {
     public string Value { get; }
+    public DateTime BirthDate { get; }
+    public Gender Gender { get; }
+    public int ControlDigit { get; }
+    public int CalculatedControlDigit { get; }
 
     public Pesel(string value)
     {
@@ -48,6 +52,10 @@ public class Pesel : ValueObject
         }
 
         Value = value;
+        ControlDigit = controlDigit;
+        CalculatedControlDigit = calculatedControl;
+        BirthDate = DecodeBirthDate(value);
+        Gender = DecodeGender(value);
     }
 
     protected override IEnumerable<object?> GetEqualityComponents()
@@ -56,4 +64,46 @@ public class Pesel : ValueObject
     }
 
     public override string ToString() => Value;
+
+    private static DateTime DecodeBirthDate(string value)
+    {
+        int year = int.Parse(value.Substring(0, 2));
+        int month = int.Parse(value.Substring(2, 2));
+        int day = int.Parse(value.Substring(4, 2));
+
+        int century;
+
+        if (month >= 81)
+        {
+            century = 1800;
+            month -= 80;
+        }
+        else if (month >= 61)
+        {
+            century = 2200;
+            month -= 60;
+        }
+        else if (month >= 41)
+        {
+            century = 2100;
+            month -= 40;
+        }
+        else if (month >= 21)
+        {
+            century = 2000;
+            month -= 20;
+        }
+        else
+        {
+            century = 1900;
+        }
+
+        return new DateTime(century + year, month, day);
+    }
+
+    private static Gender DecodeGender(string value)
+    {
+        int genderDigit = value[9] - '0';
+        return genderDigit % 2 == 1 ? Gender.Male : Gender.Female;
+    }
 }

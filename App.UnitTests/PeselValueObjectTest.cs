@@ -6,6 +6,33 @@ namespace App.UnitTests;
 
 public class PeselValueObjectTest
 {
+    [Fact]
+    public void BirthDate_ShouldDecodeCorrectly()
+    {
+        var pesel = new Pesel("02252012343");
+
+        Assert.Equal(new DateTime(2002, 5, 20), pesel.BirthDate);
+    }
+
+    [Fact]
+    public void ControlDigit_ShouldBeCalculatedCorrectly()
+    {
+        var pesel = new Pesel("02252012343");
+
+        Assert.Equal(3, pesel.ControlDigit);
+        Assert.Equal(3, pesel.CalculatedControlDigit);
+    }
+
+    [Theory]
+    [InlineData("02252012343", Gender.Female)]
+    [InlineData("02252012350", Gender.Male)]
+    public void Gender_ShouldBeReadCorrectly(string value, Gender expected)
+    {
+        var pesel = new Pesel(value);
+
+        Assert.Equal(expected, pesel.Gender);
+    }
+
     [Theory]
     [InlineData("02252012343")]
     [InlineData("02252012350")]

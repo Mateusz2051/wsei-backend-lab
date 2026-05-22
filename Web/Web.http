@@ -1,5 +1,5 @@
 @WebApi_HostAddress = http://localhost:5058
-@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjkzQTdGRkRELTA1N0YtNDAyMS05QzY4LUZFMDY5NTFGRkE2NSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6Imphbi5rb3dhbHNraUBjcm0ucGwiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9naXZlbm5hbWUiOiJKYW4iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9zdXJuYW1lIjoiS293YWxza2kiLCJkZXBhcnRtZW50IjoiU2FsZXMiLCJzdGF0dXMiOiJBY3RpdmUiLCJqdGkiOiJlZjgyNjFiMC1mMTQ4LTQ4ODMtYTkwNS1hZGRlN2NhYWJiZjQiLCJpYXQiOjE3NzgxMDA1MTQsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlNhbGVzTWFuYWdlciIsIm5iZiI6MTc3ODEwMDUxNCwiZXhwIjoxNzc4MTA0MTE0LCJpc3MiOiJJZGVpc0NybUFwaSIsImF1ZCI6IkNybUNsaWVudCJ9.OFa3i23amWsfl-NGrL-uTzasy2-Cvd2wZQmImVdwWsI
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjkzQTdGRkRELTA1N0YtNDAyMS05QzY4LUZFMDY5NTFGRkE2NSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6Imphbi5rb3dhbHNraUBjcm0ucGwiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9naXZlbm5hbWUiOiJKYW4iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9zdXJuYW1lIjoiS293YWxza2kiLCJkZXBhcnRtZW50IjoiU2FsZXMiLCJzdGF0dXMiOiJBY3RpdmUiLCJqdGkiOiIxMjY4MDM0YS0zZjVkLTQ5ZTktOTNjZC04NmE4MjAyOTRhODEiLCJpYXQiOjE3Nzk0NjYxODAsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlNhbGVzTWFuYWdlciIsIm5iZiI6MTc3OTQ2NjE4MCwiZXhwIjoxNzc5NDY5NzgwLCJpc3MiOiJJZGVpc0NybUFwaSIsImF1ZCI6IkNybUNsaWVudCJ9.Chmo8AAh72zY5WgFpLJHLrs5HRpWTk4SM-kiFXIekxU
 @personId = 00000000-0000-0000-0000-000000000000
 @organizationId = 00000000-0000-0000-0000-000000000000
 
@@ -38,6 +38,28 @@ Authorization: Bearer {{accessToken}}
     "street": "Sw. Filipa 17",
     "city": "Krakow",
     "postalCode": "31-150",
+    "country": "Poland",
+    "type": 1
+  }
+}
+
+### Contacts - create with pesel
+POST {{WebApi_HostAddress}}/api/contacts
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "firstName": "Alicja",
+  "lastName": "Nowak",
+  "email": "alicja.nowak@wsei.edu.pl",
+  "phone": "48111222333",
+  "gender": 2,
+  "birthDate": "2002-05-20T00:00:00Z",
+  "pesel": "02252012343",
+  "address": {
+    "street": "Dluga 5",
+    "city": "Krakow",
+    "postalCode": "31-100",
     "country": "Poland",
     "type": 1
   }
