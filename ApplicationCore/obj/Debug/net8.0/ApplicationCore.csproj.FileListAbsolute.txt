@@ -46,3 +46,16 @@ C:/Users/mateu/Documents/wsei-backend-lab-main/ApplicationCore/obj/Debug/net8.0/
 /home/arrow/wsei-backend-lab/ApplicationCore/obj/Debug/net8.0/refint/ApplicationCore.dll
 /home/arrow/wsei-backend-lab/ApplicationCore/obj/Debug/net8.0/ApplicationCore.pdb
 /home/arrow/wsei-backend-lab/ApplicationCore/obj/Debug/net8.0/ref/ApplicationCore.dll
+A:\lab\wsei-backend-lab\ApplicationCore\bin\Debug\net8.0\ApplicationCore.deps.json
+A:\lab\wsei-backend-lab\ApplicationCore\bin\Debug\net8.0\ApplicationCore.dll
+A:\lab\wsei-backend-lab\ApplicationCore\bin\Debug\net8.0\ApplicationCore.pdb
+A:\lab\wsei-backend-lab\ApplicationCore\obj\Debug\net8.0\ApplicationCore.csproj.AssemblyReference.cache
+A:\lab\wsei-backend-lab\ApplicationCore\obj\Debug\net8.0\ApplicationCore.GeneratedMSBuildEditorConfig.editorconfig
+A:\lab\wsei-backend-lab\ApplicationCore\obj\Debug\net8.0\ApplicationCore.AssemblyInfoInputs.cache
+A:\lab\wsei-backend-lab\ApplicationCore\obj\Debug\net8.0\ApplicationCore.AssemblyInfo.cs
+A:\lab\wsei-backend-lab\ApplicationCore\obj\Debug\net8.0\ApplicationCore.csproj.CoreCompileInputs.cache
+A:\lab\wsei-backend-lab\ApplicationCore\obj\Debug\net8.0\ApplicationCore.sourcelink.json
+A:\lab\wsei-backend-lab\ApplicationCore\obj\Debug\net8.0\ApplicationCore.dll
+A:\lab\wsei-backend-lab\ApplicationCore\obj\Debug\net8.0\refint\ApplicationCore.dll
+A:\lab\wsei-backend-lab\ApplicationCore\obj\Debug\net8.0\ApplicationCore.pdb
+A:\lab\wsei-backend-lab\ApplicationCore\obj\Debug\net8.0\ref\ApplicationCore.dll

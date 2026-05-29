@@ -13,5 +13,6 @@ public record CreatePersonDto(
     Gender Gender,
     Guid? EmployerId,
     AddressDto? Address,
-    string? Pesel = null
+    string? Pesel = null,
+    string? OwnerId = null
 );

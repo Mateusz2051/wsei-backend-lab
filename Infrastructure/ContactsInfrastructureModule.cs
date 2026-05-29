@@ -28,7 +28,7 @@ public static class ContactsInfrastructureModule
         services.AddScoped<IContactUnitOfWork, EfContactsUnitOfWork>();
 
         services.AddDbContext<ContactsDbContext>(options =>
-            options.UseSqlite(configuration.GetConnectionString("CrmDb") ?? "Data Source=crm.db"));
+            options.UseSqlite(configuration.GetConnectionString("CrmDb") ?? @"Data Source=c:\data\crm.db"));
         
         services.AddIdentity<CrmUser, CrmRole>(options =>
             {
@@ -45,6 +45,7 @@ public static class ContactsInfrastructureModule
             
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IDbSeeder, IdentityDbSeeder>();
+        services.AddScoped<IDbSeeder, Infrastructure.EF.Seeding.ContactsDbSeeder>();
         
         return services;
     }
@@ -116,6 +117,8 @@ public static class ContactsInfrastructureModule
                 .RequireAuthenticatedUser()
                 .Build();
         });
+        
+        services.AddScoped<IAuthorizationHandler, ApplicationCore.Authorization.ContactOwnerAuthorizationHandler>();
         
         return services;
     }

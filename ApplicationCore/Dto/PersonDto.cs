@@ -14,6 +14,7 @@ public record PersonDto : ContactBaseDto
     public Guid? EmployerId { get; init; }
     public Guid? OrganizationId { get; init; }
     public string? Pesel { get; init; }
+    public string? OwnerId { get; init; }
 
     public static PersonDto FromEntity(Person person) => new()
     {
@@ -28,6 +29,7 @@ public record PersonDto : ContactBaseDto
         EmployerId = person.Employer?.Id,
         OrganizationId = person.Organization?.Id,
         Pesel = person.Pesel?.Value,
+        OwnerId = person.OwnerId,
         Status = person.Status,
         Tags = person.Tags.Select(t => t.Name).ToList(),
         Notes = person.Notes,
@@ -48,7 +50,8 @@ public record PersonDto : ContactBaseDto
         CreatedAt = DateTime.UtcNow,
         Status = ContactStatus.Active,
         Address = MapAddress(dto.Address),
-        Pesel = dto.Pesel is not null ? new Pesel(dto.Pesel) : null
+        Pesel = dto.Pesel is not null ? new Pesel(dto.Pesel) : null,
+        OwnerId = dto.OwnerId
     };
 
     public static Person ApplyUpdate(Person person, UpdatePersonDto dto)

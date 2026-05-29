@@ -4,12 +4,13 @@ using ApplicationCore.Interfaces;
 using ApplicationCore.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace BackendLab01.Controllers;
 
 [ApiController]
 [Route("/api/contacts")]
-public class ContactsController(IPersonService service) : ControllerBase
+public class ContactsController(IPersonService service, IAuthorizationService authorizationService) : ControllerBase
 {
     [HttpGet]
     [Authorize(Policy = nameof(CrmPolicies.ReadOnlyAccess))]
@@ -40,16 +41,27 @@ public class ContactsController(IPersonService service) : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreatePersonDto dto)
     {
-        var result = await service.AddPerson(dto);
+        var ownerId = User.FindFirstValue(System.Security.Claims.ClaimTypes.NameIdentifier);
+        var dtoWithOwner = dto with { OwnerId = ownerId };
+        var result = await service.AddPerson(dtoWithOwner);
         return CreatedAtAction(nameof(GetPerson), new { id = result.Id }, result);
     }
 
     [HttpPut("{id:guid}")]
     public async Task<IActionResult> Update(Guid id, [FromBody] UpdatePersonDto dto)
     {
-        var existing = await service.GetById(id);
+        var existing = await service.GetPerson(id);
         if (existing is null)
             return NotFound();
+
+
+        var dummyContact = new Person { OwnerId = existing.OwnerId };
+        var authResult = await authorizationService.AuthorizeAsync(User, dummyContact, ContactOperations.Update);
+        
+        if (!authResult.Succeeded)
+        {
+            return Forbid();
+        }
 
         var updated = await service.UpdatePerson(id, dto);
         return Ok(PersonDto.FromEntity(updated));
@@ -58,9 +70,17 @@ public class ContactsController(IPersonService service) : ControllerBase
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> Delete(Guid id)
     {
-        var existing = await service.GetById(id);
+        var existing = await service.GetPerson(id);
         if (existing is null)
             return NotFound();
+
+        var dummyContact = new Person { OwnerId = existing.OwnerId };
+        var authResult = await authorizationService.AuthorizeAsync(User, dummyContact, ContactOperations.Delete);
+
+        if (!authResult.Succeeded)
+        {
+            return Forbid();
+        }
 
         await service.DeletePersonAsync(id);
         return NoContent();

@@ -3,11 +3,10 @@ using ApplicationCore.Module;
 using Infrastructure.Memory;
 using Infrastructure.Memory.Repositories;
 using ApplicationCore.Commons.Repository;
-using ApplicationCore.Models;
-using ApplicationCore.Models.QuizAggregate;
 using BackendLab01;
 using Infrastructure;
 using Infrastructure.Security;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,11 +23,6 @@ builder.Services.AddScoped<IOrganizationService, OrganizationService>();
 
 builder.Services.AddExceptionHandler<ProblemDetailsExceptionHandler>();    
 builder.Services.AddProblemDetails();
-
-builder.Services.AddSingleton<IGenericRepository<Quiz, int>, MemoryGenericRepository<Quiz, int>>();
-builder.Services.AddSingleton<IGenericRepository<QuizItem, int>, MemoryGenericRepository<QuizItem, int>>();
-builder.Services.AddSingleton<IGenericRepository<QuizItemUserAnswer, string>, MemoryGenericRepository<QuizItemUserAnswer, string>>();
-builder.Services.AddSingleton<IQuizUserService, QuizUserService>();
 
 builder.Services.AddRazorPages();
 
@@ -52,11 +46,14 @@ app.UseAuthorization();
 app.MapRazorPages();
 app.MapControllers();
 
-app.Seed();
-
 if (app.Environment.IsDevelopment())
 {
     using var scope = app.Services.CreateScope();
+    
+    // Automatyczna migracja bazy danych przy starcie
+    var dbContext = scope.ServiceProvider.GetRequiredService<Infrastructure.EF.Context.ContactsDbContext>();
+    dbContext.Database.Migrate();
+
     var seeders = scope.ServiceProvider.GetServices<IDbSeeder>().OrderBy(s => s.Order);
     foreach (var seeder in seeders)
     {
@@ -65,3 +62,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.Run();
+
+namespace BackendLab01
+{
+    public partial class Program { }
+}

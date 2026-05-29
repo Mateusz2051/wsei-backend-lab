@@ -37,8 +37,7 @@ public class ContactsDbContext : IdentityDbContext<CrmUser, CrmRole, string>
             entity.Property(r => r.Name).HasMaxLength(20);
         });
         
-        // Konfiguracji mapowania dziedziczenia TPH
-        // Jedna tabela do przechowywnia wszystkich typów kontaktów
+
         builder.Entity<Contact>()
             .HasDiscriminator<string>("ContactType")
             .HasValue<Person>("Person")
@@ -57,23 +56,21 @@ public class ContactsDbContext : IdentityDbContext<CrmUser, CrmRole, string>
             entity.Property(p => p.Gender).HasConversion<string>();
             entity.Property(p => p.Status).HasConversion<string>();
             entity.Property(p => p.Pesel)
-                .HasConversion(
-                    p => p != null ? p.Value : null,
-                    v => v != null ? new Pesel(v) : null)
+                .HasConversion(new Infrastructure.EF.Converters.PeselConverter())
                 .HasMaxLength(11);
         });
         
-        // definicja związku  
+
         builder.Entity<Person>()
             .HasOne(p => p.Employer)
             .WithMany(e => e.Employees);
      
-     // definicja związku  
+
         builder.Entity<Organization>()
             .HasMany(o => o.Members)
             .WithOne(p => p.Organization);
         
-        // przykładowa firma
+
         builder.Entity<Company>(entity =>
         {
             entity.HasData(
@@ -85,6 +82,7 @@ public class ContactsDbContext : IdentityDbContext<CrmUser, CrmRole, string>
                     Phone = "123567123",
                     Email = "biuro@wsei.edu.pl",
                     Website = "https://wsei.edu.pl",
+                    OwnerId = "F5BADE14-6CC8-42A2-9A44-9842DA2D9280"
                 }
             );
         });
@@ -133,7 +131,8 @@ public class ContactsDbContext : IdentityDbContext<CrmUser, CrmRole, string>
                     Phone = "123456789",
                     BirthDate = DateTime.Parse("2001-01-11"),
                     Position = "Programista",
-                    CreatedAt = DateTime.UtcNow
+                    CreatedAt = DateTime.UtcNow,
+                    OwnerId = "F5BADE14-6CC8-42A2-9A44-9842DA2D9280"
                 },
                 new 
                 {
@@ -146,7 +145,8 @@ public class ContactsDbContext : IdentityDbContext<CrmUser, CrmRole, string>
                     Phone = "123123123",
                     BirthDate = DateTime.Parse("2001-01-11"),
                     Position = "Tester",
-                    CreatedAt = DateTime.UtcNow
+                    CreatedAt = DateTime.UtcNow,
+                    OwnerId = "93A7FFDD-057F-4021-9C68-FE06951FFA65"
                 });
         });
         

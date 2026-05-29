@@ -1,0 +1,5 @@
+{
+  "ApplicationCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "A:\\lab\\wsei-backend-lab\\ApplicationCore",
+  "Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "A:\\lab\\wsei-backend-lab\\Infrastructure",
+  "Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "A:\\lab\\wsei-backend-lab\\Web"
+}

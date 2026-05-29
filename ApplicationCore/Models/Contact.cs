@@ -14,5 +14,7 @@ public abstract class Contact : EntityBase
     public List<Tag> Tags { get; set; } = new();
     public List<Note> Notes { get; set; } = new();
 
+    public string? OwnerId { get; set; }
+
     public abstract string GetDisplayName();
 }
